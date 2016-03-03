@@ -1,15 +1,3 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
---------------------------------------------------
 
 do
 
@@ -150,31 +138,31 @@ local function run(msg, matches)
     end
 
     -- Re-enable a plugin for this chat
-    if matches[1] == 'enable' and matches[3] == 'chat' then
+    if matches[1] == '+' and matches[3] == 'chat' then
       local receiver = get_receiver(msg)
       local plugin = matches[2]
-      print("enable "..plugin..' on this chat')
+      print("+ "..plugin..' on this chat')
       return reenable_plugin_on_chat(receiver, plugin)
     end
 
     -- Enable a plugin
-    if matches[1] == 'enable' then
+    if matches[1] == '+' then
       local plugin_name = matches[2]
-      print("enable: "..matches[2])
+      print("+: "..matches[2])
       return enable_plugin(plugin_name)
     end
 
     -- Disable a plugin on a chat
-    if matches[1] == 'disable' and matches[3] == 'chat' then
+    if matches[1] == '-' and matches[3] == 'chat' then
       local plugin = matches[2]
       local receiver = get_receiver(msg)
-      print("disable "..plugin..' on this chat')
+      print("- "..plugin..' on this chat')
       return disable_plugin_on_chat(receiver, plugin)
     end
 
     -- Disable a plugin
-    if matches[1] == 'disable' then
-      print("disable: "..matches[2])
+    if matches[1] == '-' then
+      print("-: "..matches[2])
       return disable_plugin(matches[2])
     end
 
@@ -190,10 +178,10 @@ end
 return {
   patterns = {
     "^#plugins$",
-    "^#plugins? (enable) ([%w_%.%-]+)$",
-    "^#plugins? (disable) ([%w_%.%-]+)$",
-    "^#plugins? (enable) ([%w_%.%-]+) (chat)",
-    "^#plugins? (disable) ([%w_%.%-]+) (chat)",
+    "^#plugins? (+) ([%w_%.%-]+)$",
+    "^#plugins? (-) ([%w_%.%-]+)$",
+    "^#plugins? (+) ([%w_%.%-]+) (chat)",
+    "^#plugins? (-) ([%w_%.%-]+) (chat)",
     "^#plugins? (reload)$" },
   run = run
 }
